@@ -17,4 +17,4 @@
 1. This config focuses on making things easier and faster for the user
 2. Keybinds used are based on [vim keys](https://neovim.io/) (hjkl)
 3. Implements [Nav2d](https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Actions-Navigation2D.html), Unfortunately Nav2d does not 
-remeber last focused windowbut it does implement directional navigation
+remeber last focused window but it does implement directional navigation
