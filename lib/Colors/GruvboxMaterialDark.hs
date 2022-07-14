@@ -17,7 +17,7 @@ colorFg = "#e2cca9"
 -- Red
 colorRed = "#f2594b"
 colorBgRed = "#db4740"
-colorBgDRed = "3c1f1e"
+colorBgDRed = "#3c1f1e"
 colorBgVRed = "#3c1f1e"
 
 -- Orange
@@ -46,7 +46,7 @@ colorBgDBlue = "#0d3138"
 colorPurple = "#d3869b"
 
 -- Grey
-colorGrey0 = "7c6f64"  
+colorGrey0 = "#7c6f64"  
 colorGrey1 = "#928374"
 colorGrey2 = "#a89984"
 
