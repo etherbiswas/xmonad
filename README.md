@@ -10,17 +10,17 @@ Component | Description
 ------------- | -------------
 WM | xmonad
 Compositor | [yshui/picom](https://github.com/yshui/picom)
-Systray | trayer
+SysTray | trayer
 Bar | xmobar
 Shell | bash & fish
 Editor | neovim
 Widget | Conky
-GTK-theme | [gruvbox-gtk-material](https://github.com/etherrorcode404/gruvbox-material-gtk)
-Icon theme | [gruvbox-gtk-material](https://github.com/etherrorcode404/gruvbox-material-gtk) 
-App launcher | rofi & demenu
-UI font | monospace
+GTK-Theme | [gruvbox-gtk-material](https://github.com/etherrorcode404/gruvbox-material-gtk)
+Icon-Theme | [gruvbox-gtk-material](https://github.com/etherrorcode404/gruvbox-material-gtk) 
+AppLauncher | rofi & demenu
+UI Font | monospace
 Terminal | alacritty
-Terminal font | monospace
+Terminal Font | monospace
 FileManager | pcmanfm
 
 ### Manually Installation
