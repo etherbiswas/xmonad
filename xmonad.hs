@@ -121,8 +121,8 @@ myTopBarTheme = def { fontName              = myFont
                     , activeBorderColor     = colorOrange
                     , activeColor           = colorOrange
                     , activeTextColor       = colorOrange
-                    , urgentBorderColor     = colorbgRed
-                    , urgentTextColor       = colorbgRed
+                    , urgentBorderColor     = colorBgRed
+                    , urgentTextColor       = colorBgRed
                     , decoHeight            = 8
                     }
 
@@ -130,7 +130,7 @@ myPromptTheme = def { font                  = myFont
                     , bgColor               = colorBg
                     , fgColor               = colorFg
                     , fgHLight              = colorFg
-                    , bgHLight              = colorbgRed
+                    , bgHLight              = colorBgRed
                     , borderColor           = colorBg
                     , promptBorderWidth     = myBorderWidth
                     , height                = myPromptWidth
@@ -142,7 +142,7 @@ warmPromptTheme = myPromptTheme { bgColor               = colorGreen
                                 , position              = myPromptPosition
                                 }
 
-hotPromptTheme = myPromptTheme  { bgColor               = colorbgRed
+hotPromptTheme = myPromptTheme  { bgColor               = colorBgRed
                                 , fgColor               = colorBg
                                 , position              = myPromptPosition
                                 }
@@ -505,7 +505,7 @@ myXmobarPP = def
     , ppCurrent = xmobarColor colorBg colorOrange . wrap ("<box color=colorOrange>") "</box>"
     , ppHidden = xmobarColor colorFg colorBg 
     , ppHiddenNoWindows = xmobarColor colorBg5 colorBg
-    , ppUrgent = xmobarColor colorbgRed colorBg . wrap ("<box type=Bottom width=4 mb=2 color=" ++ colorbgRed ++ ">") "</box>"
+    , ppUrgent = xmobarColor colorBgRed colorBg . wrap ("<box type=Bottom width=4 mb=2 color=" ++ colorBgRed ++ ">") "</box>"
     , ppLayout = xmobarColor colorFg colorBg
     , ppTitle = xmobarColor colorFg "" . wrap 
     (xmobarColor colorFg "" "[") (xmobarColor colorFg "" "]") . xmobarColor colorOrange "" . shorten 11 
