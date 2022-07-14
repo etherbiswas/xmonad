@@ -5,6 +5,19 @@
 
 ## Requirements
 - xmonad >= 0.17
+Component | Description
+------------- | -------------
+Widget | Conky
+Compositor | yshui/picom
+GTK-theme | gruvbox-gtk-material
+App launcher | rofi & demenu
+Icon theme | gruvbox-gtk-material 
+UI font | monospace
+Terminal | alacritty
+Terminal font | monospace
+FileManager | pcmanfm
+Bar | xmobar
+Systray | trayer
 
 ### Manually Installation
 
