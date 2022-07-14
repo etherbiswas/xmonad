@@ -25,5 +25,4 @@ colorGrey0 = "7c6f64"
 colorGrey1 = "#928374"
 colorGrey2 = "#a89984"
 
-colorTrayer :: String
 colorTrayer = "--tint 0x1d2021"
