@@ -5,6 +5,7 @@
 
 ## Requirements
 - xmonad >= 0.17
+
 Component | Description
 ------------- | -------------
 Widget | Conky
@@ -17,7 +18,7 @@ Terminal | alacritty
 Terminal font | monospace
 FileManager | pcmanfm
 Bar | xmobar
-Systray | trayer
+Sys tray | trayer
 
 ### Manually Installation
 
