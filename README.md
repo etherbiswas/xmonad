@@ -4,9 +4,12 @@
 </a>
 
 - [Colorscheme](https://github.com/sainnhe/gruvbox-material)
-    
+
+## Requirements
+- xmonad >= 0.17
+
 ### Manually Installation
 
-1. Clone this repository.
+1. Clone this repository
 2. Copy to ~/.config
-3. Follow [xmoand docs] (https://xmonad.org/INSTALL.html)
+3. Follow [xmoand docs](https://xmonad.org/INSTALL.html)
