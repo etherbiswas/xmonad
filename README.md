@@ -5,6 +5,6 @@
     
 ### Manually Installation
 
-1. Clone this repository.
+1. Clone this repository
 2. Copy to ~/.config
 3. Follow [xmoand docs](https://xmonad.org/INSTALL.html)
