@@ -8,8 +8,11 @@
 
 Component | Description
 ------------- | -------------
-Widget | Conky
+Wm | xmonad
 Compositor | yshui/picom
+Systray | trayer
+Bar | xmobar
+Widget | Conky
 GTK-theme | gruvbox-gtk-material
 App launcher | rofi & demenu
 Icon theme | gruvbox-gtk-material 
@@ -17,8 +20,6 @@ UI font | monospace
 Terminal | alacritty
 Terminal font | monospace
 FileManager | pcmanfm
-Bar | xmobar
-Sys tray | trayer
 
 ### Manually Installation
 
