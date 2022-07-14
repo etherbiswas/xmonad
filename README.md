@@ -1,5 +1,7 @@
 # xmonad
-![](https://github.com/etherrorcode404/xmonad/blob/master/images/screenshot1.png =250x250)
+<a href="#readme">
+  <img alt="screenshot1" width="80%" src="https://github.com/etherrorcode404/xmonad/blob/master/images/screenshot1.png"/>
+</a>
 
 - [Colorscheme](https://github.com/sainnhe/gruvbox-material)
     
