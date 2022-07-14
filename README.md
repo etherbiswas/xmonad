@@ -7,4 +7,4 @@
 
 1. Clone this repository.
 2. Copy to ~/.config
-3. Follow [xmoand docs] (https://xmonad.org/INSTALL.html)
+3. Follow [xmoand docs](https://xmonad.org/INSTALL.html)
