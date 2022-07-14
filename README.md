@@ -2,7 +2,10 @@
 ![](https://github.com/etherrorcode404/xmonad/blob/master/images/screenshot1.png)
 
 - [Colorscheme](https://github.com/sainnhe/gruvbox-material)
-    
+
+## Requirements
+- xmonad >= 0.17
+
 ### Manually Installation
 
 1. Clone this repository
