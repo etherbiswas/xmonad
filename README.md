@@ -12,6 +12,8 @@ Wm | xmonad
 Compositor | yshui/picom
 Systray | trayer
 Bar | xmobar
+Shell | bash & fish
+Editor | neovim
 Widget | Conky
 GTK-theme | gruvbox-gtk-material
 App launcher | rofi & demenu
