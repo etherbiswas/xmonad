@@ -8,7 +8,7 @@
 
 Component | Description
 ------------- | -------------
-Wm | xmonad
+WM | xmonad
 Compositor | yshui/picom
 Systray | trayer
 Bar | xmobar
