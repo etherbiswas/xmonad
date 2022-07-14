@@ -15,9 +15,9 @@ Bar | xmobar
 Shell | bash & fish
 Editor | neovim
 Widget | Conky
-GTK-theme | gruvbox-gtk-material
+GTK-theme | [gruvbox-gtk-material](https://github.com/etherrorcode404/gruvbox-material-gtk)
+Icon theme | [gruvbox-gtk-material](https://github.com/etherrorcode404/gruvbox-material-gtk) 
 App launcher | rofi & demenu
-Icon theme | gruvbox-gtk-material 
 UI font | monospace
 Terminal | alacritty
 Terminal font | monospace
