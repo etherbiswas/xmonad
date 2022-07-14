@@ -9,7 +9,7 @@
 Component | Description
 ------------- | -------------
 WM | xmonad
-Compositor | yshui/picom
+Compositor | [yshui/picom](https://github.com/yshui/picom)
 Systray | trayer
 Bar | xmobar
 Shell | bash & fish
