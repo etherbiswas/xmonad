@@ -14,7 +14,7 @@ SysTray | trayer
 Bar | xmobar
 Shell | bash & fish
 Editor | neovim
-Widget | Conky
+Widget | conky
 GTK-Theme | [gruvbox-gtk-material](https://github.com/etherrorcode404/gruvbox-material-gtk)
 Icon-Theme | [gruvbox-gtk-material](https://github.com/etherrorcode404/gruvbox-material-gtk) 
 AppLauncher | rofi & demenu
