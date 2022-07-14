@@ -1,6 +1,6 @@
 # xmonad
 <a href="#readme">
-  <img alt="screenshot1" width="80%" src="https://github.com/etherrorcode404/xmonad/blob/master/images/screenshot1.png"/>
+  <img alt="screenshot1" width="100%" src="https://github.com/etherrorcode404/xmonad/blob/master/images/screenshot1.png"/>
 </a>
 
 - [Colorscheme](https://github.com/sainnhe/gruvbox-material)
