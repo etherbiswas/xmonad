@@ -171,6 +171,7 @@ myResourceManager = myTerminal ++ " -e htop "
 myStartupHook :: X ()
 myStartupHook = do
     spawn "xsetroot -cursor_name left_ptr"
+    spawn "~/.config/xmonad/audioProfile.sh"
     spawn "killall trayer"
     spawn ("sleep 2 && trayer --edge top --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true  --transparent false --alpha 0 " ++ colorTrayer ++ " --height 21 --padding 3 --iconspacing 3")
     spawn "conky"
