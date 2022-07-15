@@ -26,7 +26,7 @@ FileManager | pcmanfm
 
 ### Manually Installation
 
-WARNING: ITS BEST TO CLONE THE DOTFILES REPO INSTEAD (Unless you know what your doing)
+<b>DISCLAIMER: ITS BEST TO CLONE THE DOTFILES REPO INSTEAD (Unless you know what your doing)</b>
 
 1. Clone this repository
 2. Copy to ~/.config
