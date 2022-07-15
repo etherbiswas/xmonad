@@ -319,8 +319,9 @@ myConfig = def
     , ("M-S-l",   Nav2d.windowSwap R False)
     , ("M-m", windows W.focusDown)    -- Quick fix for monocle layout
     , ("M-S-m", windows W.focusUp)    -- Quick fix for monocle layout
-    , ("M-<Backspace>", rotSlavesDown)    -- Rotate all windows except master and keep focus in place
-    , ("M-S-<Backspace>", rotAllDown)       -- Rotate all the windows in the current stack
+    , ("M-<Backspace>", promote)    -- Rotate all windows except master and keep focus in place
+    , ("M-<Tab>", rotSlavesDown)    -- Rotate all windows except master and keep focus in place
+    , ("M-S-<Tab>", rotAllDown)       -- Rotate all the windows in the current stack
 
   -- KB_GROUP Layouts
     , ("M-<Space>", sendMessage NextLayout)           
