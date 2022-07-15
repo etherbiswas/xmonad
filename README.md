@@ -24,7 +24,7 @@ Terminal | alacritty
 Terminal Font | monospace
 FileManager | pcmanfm
 
-### Manually Installation
+# Manually Installation
 <b>DISCLAIMER: ITS BEST TO CLONE THE DOTFILES REPO INSTEAD (Unless you know what your doing)</b>
 
 1. Clone this repository
