@@ -26,6 +26,8 @@ FileManager | pcmanfm
 
 ### Manually Installation
 
+WARNING: ITS BEST TO CLONE THE DOTFILES REPO INSTEAD (Unless you know what your doing)
+
 1. Clone this repository
 2. Copy to ~/.config
 3. Follow [xmoand docs](https://xmonad.org/INSTALL.html)
