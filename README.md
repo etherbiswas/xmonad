@@ -39,4 +39,3 @@ remeber last focused window but it does implement directional navigation
 ## Fixes
 
 1. Uses [XMonad.Hooks.ManageDocks](https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Hooks-ManageDocks.html) (checkDock) to fix conky
-
