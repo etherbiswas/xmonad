@@ -38,6 +38,6 @@ FileManager | pcmanfm
 3. Implements [Nav2d](https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Actions-Navigation2D.html), Unfortunately Nav2d does not 
 remeber last focused window but it does implement directional navigation
 
-## Fixes
+## Fixes implemented
 
 1. Uses [XMonad.Hooks.ManageDocks](https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Hooks-ManageDocks.html) (checkDock) to fix conky
