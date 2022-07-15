@@ -5,7 +5,7 @@
 
 ## Requirements & Used components
 - xmonad >= 0.17
-- [dotfiles](https://github.com/etherrorcode404/dotfiles) highly recommended
+- [dotfiles](https://github.com/etherrorcode404/dotfiles) (highly recommended)
 
 Component | Description
 ------------- | -------------
