@@ -13,7 +13,7 @@ WM | xmonad
 Compositor | [yshui/picom](https://github.com/yshui/picom)
 SysTray | trayer
 Bar | xmobar
-Shell | bash & fish
+Shell | bash, dash, fish
 Editor | neovim
 Widget | conky
 GTK-Theme | [gruvbox-gtk-material](https://github.com/etherrorcode404/gruvbox-material-gtk)
