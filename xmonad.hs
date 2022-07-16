@@ -57,7 +57,7 @@ import XMonad.Layout.Master
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.SimplestFloat
 import XMonad.Layout.Tabbed
-import XMonad.Layout.ThreeColumns
+import XMonad.Layout.ResizableThreeColumns
 
 ---------------------------------------------------------------------}}}
 -- Layouts Modifier                                                  {{{
@@ -266,8 +266,8 @@ myConfig = def
     , ("M-S-r", spawn "xmonad --recompile && xmonad --restart") -- Restarts xmonad
     , ("M-S-e", confirmPrompt hotPromptTheme "Quit Xmonad?" $ io exitSuccess)  -- Quits xmonad
     , ("M-c", toggleCopyToAll)
+    
     -- KB_GROUP Run Prompt
-    --, ("M-S-<Return>", spawn "dm-run") -- Dmenu
     , ("M-S-<Return>", spawn (myTerminal ++ " --working-directory \"`xcwd`\""))
 
     -- KB_GROUP Useful programs to have a keybinding for launch
@@ -482,13 +482,13 @@ threeColMid = renamed [Replace "CenteredMaster"]
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ mySpacing 5
-           $ ThreeColMid 1 (3/100) (1/2)
+           $ ResizableThreeColMid 1 (3/100) (1/2) []
 threeCol = renamed [Replace "CenteredFloatingMaster"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ mySpacing 5
-           $ ThreeCol 1 (3/100) (1/2)
+           $ ResizableThreeCol 1 (3/100) (1/2) []
 tabs     = renamed [Replace "Tabbed"]
            $ tabbed shrinkText myTabTheme
 
