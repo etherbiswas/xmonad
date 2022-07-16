@@ -57,7 +57,7 @@ import XMonad.Layout.Master
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.SimplestFloat
 import XMonad.Layout.Tabbed
-import XMonad.Layout.ResizableThreeColumns
+import XMonad.Layout.ThreeColumns
 
 ---------------------------------------------------------------------}}}
 -- Layouts Modifier                                                  {{{
@@ -170,6 +170,7 @@ myResourceManager = myTerminal ++ " -e htop "
 
 myStartupHook :: X ()
 myStartupHook = do
+    setWMName "LG3D"
     spawn "xsetroot -cursor_name left_ptr"
     spawn "~/.config/xmonad/audioProfile.sh"
     spawn "killall trayer"
@@ -179,7 +180,6 @@ myStartupHook = do
     spawn "feh --bg-fill ~/.config/xmonad/Gruv-street.png"  
     spawnOnce "numlockx"
     spawnOnce "nm-applet"
-    setWMName "LG3D"
 
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
@@ -262,33 +262,45 @@ myConfig = def
 ------------------------------------------------------------------------
 -- Key Bindings
 ------------------------------------------------------------------------
-    [ ("M-S-w", confirmPrompt hotPromptTheme "kill all windows in this workspace?" $ killAll)
-    , ("M-S-r", spawn "xmonad --recompile && xmonad --restart") -- Restarts xmonad
-    , ("M-S-e", confirmPrompt hotPromptTheme "Quit Xmonad?" $ io exitSuccess)  -- Quits xmonad
+    [ 
+    -- KB_GROUP Prompts
+      ("M-S-w", confirmPrompt hotPromptTheme "kill all windows in this workspace?" $ killAll)
+    , ("M-S-e", confirmPrompt hotPromptTheme "Quit Xmonad?" $ io exitSuccess) 
+    , ("M-S-r", spawn "xmonad --recompile && xmonad --restart") 
     , ("M-c", toggleCopyToAll)
     
-    -- KB_GROUP Run Prompt
-    , ("M-S-<Return>", spawn (myTerminal ++ " --working-directory \"`xcwd`\""))
-
-    -- KB_GROUP Useful programs to have a keybinding for launch
+    -- KB_GROUP Launch Programs
     , ("M-<Return>", spawn $ myTerminal)
-    , ("M-b", spawn $ myBrowser)
+    , ("M-S-<Return>", spawn (myTerminal ++ " --working-directory \"`xcwd`\""))
     , ("C-S-<Esc>", spawn $ myResourceManager)
+    , ("M1-<Space>", spawn "rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi")           
+    , ("M-b", spawn $ myBrowser)
     , ("M-d", spawn "dmenu_run")
 
-  -- KB_GROUP Kill windows
-    , ("M-q", (withFocused $ windows . W.sink) >> kill1)  -- Kill the currently focused client
-    , ("M-S-q", killAll) -- Kill all windows of focused client on current ws
+    -- KB_GROUP Workspaces
+    , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       
+    , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  
 
-  -- KB_GROUP Workspaces
-    , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws
-    , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
-
-  -- KB_GROUP Increase/decrease spacing (gaps)
-    , ("M-<KP_Subtract>", decWindowSpacing 4) -- Decrease window spacing
-    , ("M-<KP_Add>", incWindowSpacing 4)      -- Increase window spacing
+    -- KB_GROUP Increase/decrease spacing (gaps)
+    , ("M-<KP_Subtract>", decWindowSpacing 4) 
+    , ("M-<KP_Add>", incWindowSpacing 4)     
     
-  -- KB_GROUP Windows navigation
+    -- KB_GROUP Increase/decrease windows in the master pane or the stack
+    , ("M1-S-j", sendMessage $ IncMasterN (-1))
+    , ("M1-S-k", sendMessage $ IncMasterN 1)   
+
+    -- KB_GROUP WM
+    , ("M-q", (withFocused $ windows . W.sink) >> kill1) 
+    , ("M-S-q", killAll)
+    , ("M-x", sendMessage $ MT.Toggle REFLECTX)
+    , ("M-v", sendMessage ToggleStruts)
+    , ("M-y", withFocused toggleFloat)
+    , ("M-S-y", sinkAll)                       
+    , ("M-<Backspace>", promote)    
+    , ("M-<Tab>", rotSlavesDown)    
+    , ("M-S-<Tab>", rotAllDown)      
+
+    -- KB_GROUP Windows navigation
     , ("M-j",   Nav2d.windowGo D False)
     , ("M-k",   Nav2d.windowGo U False)
     , ("M-h",   Nav2d.windowGo L False)
@@ -297,66 +309,49 @@ myConfig = def
     , ("M-S-k",   Nav2d.windowSwap U False)
     , ("M-S-h",   Nav2d.windowSwap L False)
     , ("M-S-l",   Nav2d.windowSwap R False)
-    , ("M-m", windows W.focusDown)    -- Quick fix for monocle layout
-    , ("M-S-m", windows W.focusUp)    -- Quick fix for monocle layout
-    , ("M-<Backspace>", promote)    -- Rotate all windows except master and keep focus in place
-    , ("M-<Tab>", rotSlavesDown)    -- Rotate all windows except master and keep focus in place
-    , ("M-S-<Tab>", rotAllDown)       -- Rotate all the windows in the current stack
+    , ("M-m", windows W.focusDown)   
+    , ("M-S-m", windows W.focusUp)   
 
-  -- KB_GROUP Floating windows
-    , ("M-f", (sinkAll) >> sendMessage (MT.Toggle FULL))
-    , ("M-v", sendMessage ToggleStruts)
-    , ("M-x", sendMessage $ MT.Toggle REFLECTX)
-    , ("M-y", withFocused toggleFloat)
-    , ("M-S-y", sinkAll)                       -- Push ALL floating windows to tile
- 
-  -- KB_GROUP Layouts
+    -- KB_GROUP Layouts
     , ("M-<Space>", sendMessage NextLayout)           
-    , ("M1-<Space>", spawn "rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi")           
+    , ("M-f", (sinkAll) >> sendMessage (MT.Toggle FULL))
 
-  -- KB_GROUP Increase/decrease windows in the master pane or the stack
-    , ("M1-S-j", sendMessage $ IncMasterN (-1)) -- Decrease # of clients master pane
-    , ("M1-S-k", sendMessage $ IncMasterN 1)    -- Increase # of clients master pane
-
-  -- KB_GROUP Increase/decrease window size
-    , ("M1-h", sendMessage $ Shrink)
-    , ("M1-j", sendMessage $ MirrorShrink)
-    , ("M1-k", sendMessage $ MirrorExpand)
-    , ("M1-l", sendMessage $ Expand)
-
-  -- KB_GROUP Sublayouts
+    -- KB_GROUP Sublayouts
     , ("M-C-h", sendMessage $ pullGroup L)
-    , ("M-C-l", sendMessage $ pullGroup R)
-    , ("M-C-k", sendMessage $ pullGroup U)
     , ("M-C-j", sendMessage $ pullGroup D)
+    , ("M-C-k", sendMessage $ pullGroup U)
+    , ("M-C-l", sendMessage $ pullGroup R)
     , ("M-C-m", withFocused (sendMessage . MergeAll))
     , ("M-C-u", withFocused (sendMessage . UnMerge))
-    , ("M-M1-l", bindByLayout [("Tabbed", windows W.focusDown), ("", onGroup W.focusUp')]) -- Switch focus to prev tab
-    , ("M-M1-h", bindByLayout [("Tabbed", windows W.focusUp), ("", onGroup W.focusDown')])  -- Switch focus to next tab
+    , ("M-M1-l", bindByLayout [("Tabbed", windows W.focusDown), ("", onGroup W.focusUp')]) 
+    , ("M-M1-h", bindByLayout [("Tabbed", windows W.focusUp), ("", onGroup W.focusDown')]) 
 
-  -- KB_GROUP Scratchpads
+    -- KB_GROUP Scratchpads
     , ("M-s t", namedScratchpadAction myScratchPads "terminal")
     , ("M-s m", namedScratchpadAction myScratchPads "mocp")
     , ("M-s c", namedScratchpadAction myScratchPads "calculator")
 
-  -- KB_GROUP Controls for playerctl (SUPER-a followed by a key)
-    , ("M-a l", spawn "playerctl next")
+    -- KB_GROUP Audio
     , ("M-a h", spawn "playerctl previous")
+    , ("M-a j", spawn "amixer set Master 5%- unmute")
+    , ("M-a k", spawn "amixer set Master 5%+ unmute")
+    , ("M-a l", spawn "playerctl next")
     , ("M-a <Space>", spawn "playerctl --play-pause")
+    , ("M-a m", spawn "amixer set Master toggle")
 
-  -- KB_GROUP Controls for dunst (SUPER-n followed by a key)
+    -- KB_GROUP Notifications 
     , ("M-n <Space>", spawn "dunstctl close-all")
     , ("M-n c", spawn "dunstctl close")
     , ("M-n h", spawn "dunstctl history-pop")
 
-  -- KB_GROUP Multimedia Keys
+    -- KB_GROUP Multimedia Keys
     , ("<XF86AudioPlay>", spawn "playerctl play-pause")
     , ("<XF86AudioPrev>", spawn "playerctl previous")
     , ("<XF86AudioNext>", spawn "playerctl next")
     , ("<XF86AudioMute>", spawn "amixer set Master toggle")
     , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
     , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
-    , ("<XF86HomePage>", spawn "qutebrowser https://www.youtube.com/c/DistroTube")
+    , ("<XF86HomePage>", spawn "qutebrowser")
     , ("<XF86Search>", spawn "dm-websearch")
     , ("<XF86Mail>", runOrRaise "thunderbird" (resource =? "thunderbird"))
     , ("<XF86Calculator>", runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
@@ -470,25 +465,25 @@ tall     = renamed [Replace "MasterStack"]
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ mySpacing 5
-           $ ResizableTall 1 (3/100) (1/2) []
+           $ Tall 1 (3/100) (1/2) 
 grid     = renamed [Replace "Grid"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ mySpacing 5
            $ Grid (16/10)
-threeColMid = renamed [Replace "CenteredMaster"]
-           $ smartBorders
-           $ addTabs shrinkText myTabTheme
-           $ subLayout [] (smartBorders Simplest)
-           $ mySpacing 5
-           $ ResizableThreeColMid 1 (3/100) (1/2) []
 threeCol = renamed [Replace "CenteredFloatingMaster"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ mySpacing 5
-           $ ResizableThreeCol 1 (3/100) (1/2) []
+           $ ThreeCol 1 (3/100) (1/2) 
+threeColMid = renamed [Replace "CenteredMaster"]
+           $ smartBorders
+           $ addTabs shrinkText myTabTheme
+           $ subLayout [] (smartBorders Simplest)
+           $ mySpacing 5
+           $ ThreeColMid 1 (3/100) (1/2) 
 tabs     = renamed [Replace "Tabbed"]
            $ tabbed shrinkText myTabTheme
 
