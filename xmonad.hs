@@ -62,7 +62,6 @@ import XMonad.Layout.ThreeColumns
 ---------------------------------------------------------------------}}}
 -- Layouts Modifier                                                  {{{
 ------------------------------------------------------------------------
-import XMonad.Layout.ResizableTile
 import XMonad.Layout.MultiToggle as MT
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.WindowNavigation
