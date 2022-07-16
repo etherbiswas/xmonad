@@ -56,13 +56,13 @@ import XMonad.Layout.Fullscreen
 import XMonad.Layout.Master
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.SimplestFloat
-import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 
 ---------------------------------------------------------------------}}}
 -- Layouts Modifier                                                  {{{
 ------------------------------------------------------------------------
+import XMonad.Layout.ResizableTile
 import XMonad.Layout.MultiToggle as MT
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.WindowNavigation
@@ -273,8 +273,7 @@ myConfig = def
     -- KB_GROUP Useful programs to have a keybinding for launch
     , ("M-<Return>", spawn $ myTerminal)
     , ("M-b", spawn $ myBrowser)
-    , ("M-n", spawn $ myEditor)
-    , ("M1-h", spawn $ myResourceManager)
+    , ("C-S-<Esc>", spawn $ myResourceManager)
     , ("M-d", spawn "dmenu_run")
 
   -- KB_GROUP Kill windows
@@ -285,30 +284,10 @@ myConfig = def
     , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws
     , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
 
-  -- KB_GROUP Floating windows
-    , ("M-f", (sinkAll) >> sendMessage (MT.Toggle FULL))
-    , ("M-v", sendMessage ToggleStruts)
-    , ("M-x", sendMessage $ MT.Toggle REFLECTX)
-    , ("M-y", withFocused toggleFloat)
-    , ("M-S-y", sinkAll)                       -- Push ALL floating windows to tile
-
   -- KB_GROUP Increase/decrease spacing (gaps)
-  {-
-    , ("M1-j", decWindowSpacing 4)         -- Decrease window spacing
-    , ("M1-k", incWindowSpacing 4)         -- Increase window spacing
-    , ("M1-h", decScreenSpacing 4)         -- Decrease screen spacing
-    , ("M1-l", incScreenSpacing 4)         -- Increase screen spacing
-    , ("M1-h", sendMessage $ MirrorExpand)
-    , ("M1-j", sendMessage $ MirrorShrink)
-    , ("M1-k", sendMessage $ MirrorExpand)
-    , ("M1-l", sendMessage $ MirrorShrink)
-   -}
-
-  -- KB_GROUP Grid Select (CTR-g followed by a key)
-    --, ("M-g", spawnSelected' myAppGrid)                 -- grid select favorite apps
-    --, ("C-g t", goToSelected $ mygridConfig myColorizer)  -- goto selected window
-    --, ("C-g b", bringSelected $ mygridConfig myColorizer) -- bring selected window
-
+    , ("M-<KP_Subtract>", decWindowSpacing 4) -- Decrease window spacing
+    , ("M-<KP_Add>", incWindowSpacing 4)      -- Increase window spacing
+    
   -- KB_GROUP Windows navigation
     , ("M-j",   Nav2d.windowGo D False)
     , ("M-k",   Nav2d.windowGo U False)
@@ -324,14 +303,26 @@ myConfig = def
     , ("M-<Tab>", rotSlavesDown)    -- Rotate all windows except master and keep focus in place
     , ("M-S-<Tab>", rotAllDown)       -- Rotate all the windows in the current stack
 
+  -- KB_GROUP Floating windows
+    , ("M-f", (sinkAll) >> sendMessage (MT.Toggle FULL))
+    , ("M-v", sendMessage ToggleStruts)
+    , ("M-x", sendMessage $ MT.Toggle REFLECTX)
+    , ("M-y", withFocused toggleFloat)
+    , ("M-S-y", sinkAll)                       -- Push ALL floating windows to tile
+ 
   -- KB_GROUP Layouts
     , ("M-<Space>", sendMessage NextLayout)           
     , ("M1-<Space>", spawn "rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi")           
-    --, ("M-d", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
 
   -- KB_GROUP Increase/decrease windows in the master pane or the stack
-    , ("M1-S-k", sendMessage $ IncMasterN 1)      -- Increase # of clients master pane
     , ("M1-S-j", sendMessage $ IncMasterN (-1)) -- Decrease # of clients master pane
+    , ("M1-S-k", sendMessage $ IncMasterN 1)    -- Increase # of clients master pane
+
+  -- KB_GROUP Increase/decrease window size
+    , ("M1-h", sendMessage $ Shrink)
+    , ("M1-j", sendMessage $ MirrorShrink)
+    , ("M1-k", sendMessage $ MirrorExpand)
+    , ("M1-l", sendMessage $ Expand)
 
   -- KB_GROUP Sublayouts
     , ("M-C-h", sendMessage $ pullGroup L)
@@ -348,11 +339,15 @@ myConfig = def
     , ("M-s m", namedScratchpadAction myScratchPads "mocp")
     , ("M-s c", namedScratchpadAction myScratchPads "calculator")
 
-  -- KB_GROUP Controls for mocp music player (SUPER-u followed by a key)
-    , ("M-u p", spawn "mocp --play")
-    , ("M-u l", spawn "mocp --next")
-    , ("M-u h", spawn "mocp --previous")
-    , ("M-u <Space>", spawn "mocp --toggle-pause")
+  -- KB_GROUP Controls for playerctl (SUPER-a followed by a key)
+    , ("M-a l", spawn "playerctl next")
+    , ("M-a h", spawn "playerctl previous")
+    , ("M-a <Space>", spawn "playerctl --play-pause")
+
+  -- KB_GROUP Controls for dunst (SUPER-n followed by a key)
+    , ("M-n <Space>", spawn "dunstctl close-all")
+    , ("M-n c", spawn "dunstctl close")
+    , ("M-n h", spawn "dunstctl history-pop")
 
   -- KB_GROUP Multimedia Keys
     , ("<XF86AudioPlay>", spawn "playerctl play-pause")
@@ -361,13 +356,13 @@ myConfig = def
     , ("<XF86AudioMute>", spawn "amixer set Master toggle")
     , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
     , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
-    , ("M1-m", spawn "amixer -q sset Capture toggle")
     , ("<XF86HomePage>", spawn "qutebrowser https://www.youtube.com/c/DistroTube")
     , ("<XF86Search>", spawn "dm-websearch")
     , ("<XF86Mail>", runOrRaise "thunderbird" (resource =? "thunderbird"))
     , ("<XF86Calculator>", runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
     , ("<XF86Eject>", spawn "toggleeject")
     , ("<Print>", spawn "scrot")
+    , ("M1-m", spawn "amixer -q sset Capture toggle")
     ]
 
 ------------------------------------------------------------------------
