@@ -24,7 +24,7 @@ Terminal | alacritty
 Terminal Font | monospace
 FileManager | pcmanfm
 
-# Manually Installation
+# Manual Installation
 
 1. Clone this repository
 2. Copy to ~/.config
