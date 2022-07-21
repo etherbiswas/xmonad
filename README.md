@@ -25,7 +25,6 @@ Terminal Font | monospace
 FileManager | pcmanfm
 
 # Manually Installation
-<b>DISCLAIMER: ITS BEST TO CLONE THE [DOTFILES](https://github.com/etherrorcode404/dotfiles) REPO INSTEAD (Unless you know what your doing)</b>
 
 1. Clone this repository
 2. Copy to ~/.config
