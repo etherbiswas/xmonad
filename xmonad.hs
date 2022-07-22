@@ -4,7 +4,7 @@
 import XMonad
 import XMonad.Layout
 import System.Directory
-import System.IO 
+import System.IO as SysIO
 import System.Exit 
 import qualified XMonad.StackSet as W
 
@@ -30,13 +30,13 @@ import qualified Data.Map as M
 ---------------------------------------------------------------------}}}
 -- Hooks                                                             {{{
 ------------------------------------------------------------------------
+import XMonad.Hooks.EwmhDesktops as Ewmh
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers as ManageHelpers
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
-import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.UrgencyHook
-import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory
 
@@ -125,7 +125,7 @@ myPromptTheme = def { font                  = myFont
                     }
 
 warmPromptTheme = myPromptTheme { bgColor               = colorGreen
-                                , fgColor               = colorFg
+                                , fgColor               = colorBg
                                 , position              = myPromptPosition
                                 }
 
@@ -134,11 +134,11 @@ hotPromptTheme = myPromptTheme  { bgColor               = colorBgRed
                                 , position              = myPromptPosition
                                 }
 
-myFont = "xft:monospace:regular:size=10:antialias=true:hinting=true"
-myTabFont = "xft:monospace:regular:size=8:antialias=true:hinting=true"
-myBorderWidth = 2          
-myPromptWidth = 20
 myPromptPosition = Top
+myTabFont = "xft:monospace:regular:size=8:antialias=true:hinting=true"
+myFont = "xft:monospace:regular:size=10:antialias=true:hinting=true"
+myPromptWidth = 20
+myBorderWidth = 2          
 myNormColor  = colorBg
 myFocusColor = colorOrange
 
@@ -491,9 +491,4 @@ myXmobarPP = def
     }
 
 -- }}}
-
-{- TODOS:
- - GRID SELECT
--}
-
 -- vim: ft=haskell:foldmethod=marker:expandtab:ts=4:shiftwidth=4
