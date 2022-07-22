@@ -11,28 +11,20 @@ import qualified XMonad.StackSet as W
 ---------------------------------------------------------------------}}}
 -- Actions                                                           {{{
 ------------------------------------------------------------------------
+import XMonad.Actions.Navigation2D as Nav2d
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.PerLayoutKeys
-import XMonad.Actions.Navigation2D as Nav2d
-import XMonad.Actions.CopyWindow 
 import XMonad.Actions.CycleWS 
 import XMonad.Actions.MouseResize
 import XMonad.Actions.Promote
 import XMonad.Actions.RotSlaves 
 import XMonad.Actions.WindowGo 
 import XMonad.Actions.WithAll 
-import qualified XMonad.Actions.Search as S
 
 ---------------------------------------------------------------------}}}
 -- Data                                                              {{{
 ------------------------------------------------------------------------
-import Data.Foldable
-import Data.Char 
 import Data.Maybe 
-import Data.Monoid
-import Control.Monad
-import Data.Maybe 
-import Data.Tree
 import qualified Data.Map as M
 
 ---------------------------------------------------------------------}}}
@@ -65,29 +57,25 @@ import XMonad.Layout.ThreeColumns
 import XMonad.Layout.MultiToggle as MT
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.WindowNavigation
-import XMonad.Layout.Gaps
-import XMonad.Layout.Reflect
 import XMonad.Layout.LayoutModifier
+import XMonad.Layout.SubLayouts
+import XMonad.Layout.Simplest
 import XMonad.Layout.Magnifier
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
-import XMonad.Layout.Simplest
+import XMonad.Layout.Reflect
 import XMonad.Layout.Spacing
-import XMonad.Layout.SubLayouts
-import XMonad.Layout.WindowArranger 
+import XMonad.Layout.Gaps
 
 ---------------------------------------------------------------------}}}
 -- Utilities                                                         {{{
 ------------------------------------------------------------------------
 import qualified XMonad.Util.Hacks as Hacks
-import XMonad.Util.Loggers
-import XMonad.Util.NamedWindows
-import XMonad.Util.Run
-import XMonad.Util.Dmenu
 import XMonad.Util.EZConfig
-import XMonad.Util.NamedScratchpad
-import XMonad.Util.Run 
+import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
+import XMonad.Util.NamedWindows
+import XMonad.Util.NamedScratchpad
 
 ---------------------------------------------------------------------}}}
 -- Prompt                                                            {{{
@@ -273,6 +261,7 @@ myConfig = def
     , ("M-S-<Return>", spawn (myTerminal ++ " --working-directory \"`xcwd`\""))
     , ("C-S-<Esc>", spawn $ myResourceManager)
     , ("M1-<Space>", spawn "rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi")           
+    , ("M1-<Tab>", spawn "rofi -modi window -show window -config ~/.config/rofi/rofidmenu.rasi")           
     , ("M-b", spawn $ myBrowser)
     , ("M-d", spawn "dmenu_run")
 
@@ -504,10 +493,7 @@ myXmobarPP = def
 -- }}}
 
 {- TODOS:
- - REMOVE USELESS IMPORTS
- - MATCH HASKELL STANDARDS
  - GRID SELECT
- - CHECK WINDOW SWALLOW
 -}
 
 -- vim: ft=haskell:foldmethod=marker:expandtab:ts=4:shiftwidth=4
