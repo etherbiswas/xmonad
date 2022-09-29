@@ -146,7 +146,7 @@ myFocusColor = colorOrange
 -- Applications                                                      {{{
 ------------------------------------------------------------------------
 myTerminal = "alacritty"   
-myBrowser = "firefox-esr"  
+myBrowser = "brave-browser"  
 myModMask = mod4Mask        
 myEditor = myTerminal ++ " -e nvim "    
 myResourceManager = myTerminal ++ " -e htop "    
@@ -278,6 +278,7 @@ myConfig = def
     , ("M1-S-k", sendMessage $ IncMasterN 1)   
 
     -- KB_GROUP WM
+    , ("M1-S-l", physlock)
     , ("M-q", (withFocused $ windows . W.sink) >> kill1) 
     , ("M-S-q", killAll)
     , ("M-x", sendMessage $ MT.Toggle REFLECTX)
