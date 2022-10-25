@@ -147,6 +147,7 @@ myFocusColor = colorFg
 ------------------------------------------------------------------------
 myTerminal = "alacritty"   
 myBrowser = "brave-browser"  
+myLockscreen = "physlock"
 myModMask = mod4Mask        
 myEditor = myTerminal ++ " -e nvim "    
 myResourceManager = myTerminal ++ " -e htop "    
@@ -164,7 +165,7 @@ myStartupHook = do
     spawn ("sleep 2 && trayer --edge top --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true  --transparent false --alpha 0 " ++ colorTrayer ++ " --height 21 --padding 3 --iconspacing 3")
     spawn "conky"
     spawn "picom"
-    spawn "feh --bg-fill ~/.config/xmonad/Gruv-street.png"  
+    spawn "feh --bg-fill ~/.config/xmonad/Gruv-nvim.png"  
     spawnOnce "numlockx"
     spawnOnce "nm-applet"
 
@@ -278,7 +279,7 @@ myConfig = def
     , ("M1-S-k", sendMessage $ IncMasterN 1)   
 
     -- KB_GROUP WM
-    , ("M1-S-l", physlock)
+    , ("M1-S-l", spawn $ myLockscreen)
     , ("M-q", (withFocused $ windows . W.sink) >> kill1) 
     , ("M-S-q", killAll)
     , ("M-x", sendMessage $ MT.Toggle REFLECTX)
