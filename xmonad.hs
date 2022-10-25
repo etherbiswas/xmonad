@@ -199,10 +199,10 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  t = 0.75 -h
                  l = 0.70 -w
 
-mySpacing i = spacingRaw True (Border i i i i) True (Border i i i i) True
+mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
--- Single window has gaps;
---mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
+-- Single windows have no gaps;
+--mySpacing i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
 myNav2DConf = def
     { defaultTiledNavigation    = sideNavigation
