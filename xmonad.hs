@@ -140,7 +140,7 @@ myFont = "xft:monospace:regular:size=10:antialias=true:hinting=true"
 myPromptWidth = 20
 myBorderWidth = 2          
 myNormColor  = colorBg
-myFocusColor = colorOrange
+myFocusColor = colorFg
 
 ---------------------------------------------------------------------}}}
 -- Applications                                                      {{{
