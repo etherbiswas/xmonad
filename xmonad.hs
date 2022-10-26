@@ -39,6 +39,7 @@ import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory
+import XMonad.Hooks.DynamicProperty
 
 ---------------------------------------------------------------------}}}
 -- Layouts                                                           {{{
@@ -230,7 +231,7 @@ main = do
 
 myConfig = def
     { manageHook         = insertPosition Below Newer <+> myManageHook
-    , handleEventHook    = myHandleEventHook
+    , handleEventHook    = myHandleEventHook <+> myDynamicPropertyChange
     , modMask            = myModMask
     , terminal           = myTerminal
     , focusFollowsMouse  = False
@@ -409,6 +410,7 @@ myManageHook =
     , className =? "toolbar"         --> doFloat
     , className =? "zoom"            --> doFloat
     , className =? "Yad"             --> doCenterFloat
+    , className =? "Firefox-esr"     --> doShift " 3 "
     , isFullscreen                   --> doFullFloat
     ] <+> namedScratchpadManageHook myScratchPads
 
@@ -417,6 +419,8 @@ myManageHook =
 ---------------------------------------------------------------------------
 myHandleEventHook = XMonad.Layout.Fullscreen.fullscreenEventHook
                 <+> Hacks.windowedFullscreenFixEventHook
+
+myDynamicPropertyChange = dynamicPropertyChange "WM_NAME" (title =? "Spotify" --> doShift " 2 ")
 
 ---------------------------------------------------------------------------
 -- Custom Hook Helpers
