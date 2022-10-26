@@ -225,7 +225,7 @@ main = do
       $ docks
       $ withNavigation2DConfig myNav2DConf
       $ withSB (statusBarProp "xmobar ~/.config/xmobar/xmobar.hs" (copiesPP (xmobarColor colorFg colorBg . wrap
-               ("<box type=Bottom width=4 mb=2 color=" ++ colorFg ++ ">") "</box>") myXmobarPP))
+               ("<box type=Bottom width=3 mb=2 color=" ++ colorBlue ++ ">") "</box>") myXmobarPP))
       $ myConfig
 
 myConfig = def
@@ -283,7 +283,6 @@ myConfig = def
     , ("M-q", (withFocused $ windows . W.sink) >> kill1) 
     , ("M-S-q", killAll)
     , ("M-x", sendMessage $ MT.Toggle REFLECTX)
-    , ("M-v", sendMessage ToggleStruts)
     , ("M-y", withFocused toggleFloat)
     , ("M-S-y", sinkAll)                       
     , ("M-<Backspace>", promote)    
@@ -304,7 +303,7 @@ myConfig = def
 
     -- KB_GROUP Layouts
     , ("M-<Space>", sendMessage NextLayout)           
-    , ("M-f", (sinkAll) >> sendMessage (MT.Toggle FULL))
+    , ("M-f", (sinkAll) >> sendMessage (MT.Toggle FULL) >> sendMessage (ToggleStruts))
 
     -- KB_GROUP Sublayouts
     , ("M-C-h", sendMessage $ pullGroup L)
@@ -489,7 +488,7 @@ myXmobarPP = def
     , ppUrgent = xmobarColor colorBgRed colorBg . wrap ("<box type=Bottom width=4 mb=2 color=" ++ colorBgRed ++ ">") "</box>"
     , ppLayout = xmobarColor colorFg colorBg
     , ppTitle = xmobarColor colorFg "" . wrap 
-    (xmobarColor colorFg "" "[") (xmobarColor colorFg "" "]") . xmobarColor colorOrange "" . shorten 11 
+    (xmobarColor colorOrange "" "(") (xmobarColor colorOrange "" ")") . xmobarColor colorOrange "" . shorten 11 
     }
 
 -- }}}
