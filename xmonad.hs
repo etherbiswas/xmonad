@@ -483,7 +483,7 @@ tabs     = renamed [Replace "Tabbed"]
 myXmobarPP :: PP
 myXmobarPP = def
     { ppSep = xmobarColor colorBg "" "  "
-    , ppCurrent = xmobarColor colorBg colorOrange . wrap ("<box color=colorOrange>") "</box>"
+    , ppCurrent = xmobarColor colorBg colorGreen . wrap ("<box color=colorGreen>") "</box>"
     , ppHidden = xmobarColor colorFg colorBg 
     , ppHiddenNoWindows = xmobarColor colorBg5 colorBg
     , ppUrgent = xmobarColor colorBgRed colorBg . wrap ("<box type=Bottom width=4 mb=2 color=" ++ colorBgRed ++ ">") "</box>"
