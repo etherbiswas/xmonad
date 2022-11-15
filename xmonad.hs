@@ -39,7 +39,7 @@ import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory
-import XMonad.Hooks.DynamicProperty
+import XMonad.Hooks.OnPropertyChange
 
 ---------------------------------------------------------------------}}}
 -- Layouts                                                           {{{
@@ -139,9 +139,9 @@ myPromptPosition = Top
 myTabFont = "xft:monospace:regular:size=8:antialias=true:hinting=true"
 myFont = "xft:monospace:regular:size=10:antialias=true:hinting=true"
 myPromptWidth = 20
-myBorderWidth = 2          
+myBorderWidth = 1
 myNormColor  = colorBg
-myFocusColor = colorFg
+myFocusColor = colorGrey0
 
 ---------------------------------------------------------------------}}}
 -- Applications                                                      {{{
@@ -163,12 +163,14 @@ myStartupHook = do
     spawn "xsetroot -cursor_name left_ptr"
     spawn "~/.config/xmonad/audioProfile.sh"
     spawn "killall trayer"
-    spawn ("sleep 2 && trayer --edge top --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true  --transparent false --alpha 0 " ++ colorTrayer ++ " --height 21 --padding 3 --iconspacing 3")
+    spawn ("sleep 2 && trayer --edge bottom --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true  --transparent false --alpha 0 " ++ colorTrayer ++ " --height 21 --padding 3 --iconspacing 3")
     spawn "conky"
     spawn "picom"
-    spawn "feh --bg-fill ~/.config/xmonad/Gruv-nvim.png"  
+    spawn "feh --bg-fill ~/.config/xmonad/Gruv-street.png"  
     spawnOnce "numlockx"
     spawnOnce "nm-applet"
+    spawnOnce "xbacklight -set 25"
+    spawn "redshift -x && redshift -O 3500"
 
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
@@ -203,7 +205,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
 
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
--- Single windows have no gaps;
+-- Single windows have gaps;
 --mySpacing i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
 myNav2DConf = def
@@ -221,6 +223,7 @@ main :: IO ()
 main = do
     xmonad
       $ Hacks.javaHack
+      $ fullscreenSupportBorder
       $ ewmh
       $ withUrgencyHook NoUrgencyHook
       $ docks
@@ -231,7 +234,7 @@ main = do
 
 myConfig = def
     { manageHook         = insertPosition Below Newer <+> myManageHook
-    , handleEventHook    = myHandleEventHook <+> myDynamicPropertyChange
+    , handleEventHook    = myHandleEventHook 
     , modMask            = myModMask
     , terminal           = myTerminal
     , focusFollowsMouse  = False
@@ -410,7 +413,7 @@ myManageHook =
     , className =? "toolbar"         --> doFloat
     , className =? "zoom"            --> doFloat
     , className =? "Yad"             --> doCenterFloat
-    , className =? "Firefox-esr"     --> doShift " 3 "
+    -- , className =? "Firefox-esr"     --> doShift " 3 "
     , isFullscreen                   --> doFullFloat
     ] <+> namedScratchpadManageHook myScratchPads
 
@@ -420,7 +423,7 @@ myManageHook =
 myHandleEventHook = XMonad.Layout.Fullscreen.fullscreenEventHook
                 <+> Hacks.windowedFullscreenFixEventHook
 
-myDynamicPropertyChange = dynamicPropertyChange "WM_NAME" (title =? "Spotify" --> doShift " 2 ")
+myXPropertyChange = onXPropertyChange "WM_NAME" (title =? "Spotify" --> doShift " 2 ")
 
 ---------------------------------------------------------------------------
 -- Custom Hook Helpers
@@ -447,35 +450,35 @@ myLayoutHook =   avoidStruts
                $ mkToggle (single FULL) 
                $ myLayouts
              where
-             myLayouts =       tall
-                           ||| grid
-                           ||| threeCol
+             myLayouts =       grid
                            ||| threeColMid
+                           ||| tall
+                           ||| threeCol
                            ||| tabs
 
 tall     = renamed [Replace "MasterStack"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ mySpacing 5
+           $ mySpacing 0
            $ Tall 1 (3/100) (1/2) 
 grid     = renamed [Replace "Grid"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ mySpacing 5
+           $ mySpacing 0
            $ Grid (16/10)
 threeCol = renamed [Replace "CenteredFloatingMaster"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ mySpacing 5
+           $ mySpacing 0
            $ ThreeCol 1 (3/100) (1/2) 
 threeColMid = renamed [Replace "CenteredMaster"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ mySpacing 5
+           $ mySpacing 0
            $ ThreeColMid 1 (3/100) (1/2) 
 tabs     = renamed [Replace "Tabbed"]
            $ tabbed shrinkText myTabTheme
@@ -486,13 +489,13 @@ tabs     = renamed [Replace "Tabbed"]
 myXmobarPP :: PP
 myXmobarPP = def
     { ppSep = xmobarColor colorBg "" "  "
-    , ppCurrent = xmobarColor colorBg5 colorGreen . wrap ("<box color=colorGreen>") "</box>"
+    , ppCurrent = xmobarColor colorBg5 colorOrange . wrap ("<box color=colorOrange>") "</box>"
     , ppHidden = xmobarColor colorFg colorBg 
     , ppHiddenNoWindows = xmobarColor colorBg5 colorBg
     , ppUrgent = xmobarColor colorBgRed colorBg . wrap ("<box type=Bottom width=4 mb=2 color=" ++ colorBgRed ++ ">") "</box>"
     , ppLayout = xmobarColor colorFg colorBg
     , ppTitle = xmobarColor colorFg "" . wrap 
-    (xmobarColor colorOrange "" "(") (xmobarColor colorOrange "" ")") . xmobarColor colorOrange "" . shorten 11 
+    (xmobarColor colorFg "" "[") (xmobarColor colorFg "" "]") . xmobarColor colorOrange "" . shorten 11 
     }
 
 -- }}}
