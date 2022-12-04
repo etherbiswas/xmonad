@@ -163,7 +163,7 @@ myStartupHook = do
     spawn "xsetroot -cursor_name left_ptr"
     spawn "~/.config/xmonad/audioProfile.sh"
     spawn "killall trayer"
-    spawn ("sleep 2 && trayer --edge bottom --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true  --transparent false --alpha 0 " ++ colorTrayer ++ " --height 21 --padding 3 --iconspacing 3")
+    spawn ("sleep 2 && trayer --edge bottom --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true  --transparent false --alpha 0 " ++ colorTrayer ++ " --height 22 --padding 3 --iconspacing 3")
     spawn "conky"
     spawn "picom"
     spawn "feh --bg-fill ~/.config/xmonad/Gruv-street.png"
