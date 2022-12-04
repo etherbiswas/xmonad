@@ -5,7 +5,7 @@ import XMonad
 import XMonad.Layout
 import System.Directory
 import System.IO as SysIO
-import System.Exit 
+import System.Exit
 import qualified XMonad.StackSet as W
 
 ---------------------------------------------------------------------}}}
@@ -14,17 +14,17 @@ import qualified XMonad.StackSet as W
 import XMonad.Actions.Navigation2D as Nav2d
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.PerLayoutKeys
-import XMonad.Actions.CycleWS 
+import XMonad.Actions.CycleWS
 import XMonad.Actions.MouseResize
 import XMonad.Actions.Promote
-import XMonad.Actions.RotSlaves 
-import XMonad.Actions.WindowGo 
-import XMonad.Actions.WithAll 
+import XMonad.Actions.RotSlaves
+import XMonad.Actions.WindowGo
+import XMonad.Actions.WithAll
 
 ---------------------------------------------------------------------}}}
 -- Data                                                              {{{
 ------------------------------------------------------------------------
-import Data.Maybe 
+import Data.Maybe
 import qualified Data.Map as M
 
 ---------------------------------------------------------------------}}}
@@ -146,12 +146,12 @@ myFocusColor = colorGrey0
 ---------------------------------------------------------------------}}}
 -- Applications                                                      {{{
 ------------------------------------------------------------------------
-myTerminal = "alacritty"   
-myBrowser = "brave-browser"  
+myTerminal = "alacritty"
+myBrowser = "brave-browser"
 myLockscreen = "physlock"
-myModMask = mod4Mask        
-myEditor = myTerminal ++ " -e nvim "    
-myResourceManager = myTerminal ++ " -e htop "    
+myModMask = mod4Mask
+myEditor = myTerminal ++ " -e nvim "
+myResourceManager = myTerminal ++ " -e htop "
 
 ---------------------------------------------------------------------}}}
 -- Startup                                                           {{{
@@ -166,8 +166,9 @@ myStartupHook = do
     spawn ("sleep 2 && trayer --edge bottom --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true  --transparent false --alpha 0 " ++ colorTrayer ++ " --height 21 --padding 3 --iconspacing 3")
     spawn "conky"
     spawn "picom"
-    spawn "feh --bg-fill ~/.config/xmonad/Gruv-street.png"  
+    spawn "feh --bg-fill ~/.config/xmonad/Gruv-street.png"
     spawnOnce "numlockx"
+    spawnOnce "volumeicon"
     spawnOnce "nm-applet"
     spawnOnce "xbacklight -set 25"
     spawn "redshift -x && redshift -O 3500"
@@ -234,7 +235,7 @@ main = do
 
 myConfig = def
     { manageHook         = insertPosition Below Newer <+> myManageHook
-    , handleEventHook    = myHandleEventHook 
+    , handleEventHook    = myHandleEventHook
     , modMask            = myModMask
     , terminal           = myTerminal
     , focusFollowsMouse  = False
@@ -254,44 +255,44 @@ myConfig = def
 ------------------------------------------------------------------------
 -- Key Bindings
 ------------------------------------------------------------------------
-    [ 
+    [
     -- KB_GROUP Prompts
       ("M-S-w", confirmPrompt hotPromptTheme "kill all windows in this workspace?" $ killAll)
-    , ("M-S-e", confirmPrompt hotPromptTheme "Quit Xmonad?" $ io exitSuccess) 
-    , ("M-S-r", spawn "xmonad --recompile && xmonad --restart") 
+    , ("M-S-e", confirmPrompt hotPromptTheme "Quit Xmonad?" $ io exitSuccess)
+    , ("M-S-r", spawn "xmonad --recompile && xmonad --restart")
     , ("M-c", toggleCopyToAll)
-    
+
     -- KB_GROUP Launch Programs
     , ("M-<Return>", spawn $ myTerminal)
     , ("M-S-<Return>", spawn (myTerminal ++ " --working-directory \"`xcwd`\""))
     , ("C-S-<Esc>", spawn $ myResourceManager)
-    , ("M1-<Space>", spawn "rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi")           
-    , ("M1-<Tab>", spawn "rofi -modi window -show window -config ~/.config/rofi/rofidmenu.rasi")           
+    , ("M1-<Space>", spawn "rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi")
+    , ("M1-<Tab>", spawn "rofi -modi window -show window -config ~/.config/rofi/rofidmenu.rasi")
     , ("M-b", spawn $ myBrowser)
     , ("M-d", spawn "dmenu_run")
 
     -- KB_GROUP Workspaces
-    , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       
-    , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  
+    , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)
+    , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)
 
     -- KB_GROUP Increase/decrease spacing (gaps)
-    , ("M-<KP_Subtract>", decWindowSpacing 4) 
-    , ("M-<KP_Add>", incWindowSpacing 4)     
-    
+    , ("M-<KP_Subtract>", decWindowSpacing 4)
+    , ("M-<KP_Add>", incWindowSpacing 4)
+
     -- KB_GROUP Increase/decrease windows in the master pane or the stack
     , ("M1-S-j", sendMessage $ IncMasterN (-1))
-    , ("M1-S-k", sendMessage $ IncMasterN 1)   
+    , ("M1-S-k", sendMessage $ IncMasterN 1)
 
     -- KB_GROUP WM
     , ("M1-S-l", spawn $ myLockscreen)
-    , ("M-q", (withFocused $ windows . W.sink) >> kill1) 
+    , ("M-q", (withFocused $ windows . W.sink) >> kill1)
     , ("M-S-q", killAll)
     , ("M-x", sendMessage $ MT.Toggle REFLECTX)
     , ("M-y", withFocused toggleFloat)
-    , ("M-S-y", sinkAll)                       
-    , ("M-<Backspace>", promote)    
-    , ("M-<Tab>", rotSlavesDown)    
-    , ("M-S-<Tab>", rotAllDown)      
+    , ("M-S-y", sinkAll)
+    , ("M-<Backspace>", promote)
+    , ("M-<Tab>", rotSlavesDown)
+    , ("M-S-<Tab>", rotAllDown)
 
     -- KB_GROUP Windows navigation
     , ("M-j",   Nav2d.windowGo D False)
@@ -302,11 +303,11 @@ myConfig = def
     , ("M-S-k",   Nav2d.windowSwap U False)
     , ("M-S-h",   Nav2d.windowSwap L False)
     , ("M-S-l",   Nav2d.windowSwap R False)
-    , ("M-m", windows W.focusDown)   
-    , ("M-S-m", windows W.focusUp)   
+    , ("M-m", windows W.focusDown)
+    , ("M-S-m", windows W.focusUp)
 
     -- KB_GROUP Layouts
-    , ("M-<Space>", sendMessage NextLayout)           
+    , ("M-<Space>", sendMessage NextLayout)
     , ("M-f", (sinkAll) >> sendMessage (MT.Toggle FULL) >> sendMessage (ToggleStruts))
 
     -- KB_GROUP Sublayouts
@@ -316,8 +317,8 @@ myConfig = def
     , ("M-C-l", sendMessage $ pullGroup R)
     , ("M-C-m", withFocused (sendMessage . MergeAll))
     , ("M-C-u", withFocused (sendMessage . UnMerge))
-    , ("M-M1-l", bindByLayout [("Tabbed", windows W.focusDown), ("", onGroup W.focusUp')]) 
-    , ("M-M1-h", bindByLayout [("Tabbed", windows W.focusUp), ("", onGroup W.focusDown')]) 
+    , ("M-M1-l", bindByLayout [("Tabbed", windows W.focusDown), ("", onGroup W.focusUp')])
+    , ("M-M1-h", bindByLayout [("Tabbed", windows W.focusUp), ("", onGroup W.focusDown')])
 
     -- KB_GROUP Scratchpads
     , ("M-s t", namedScratchpadAction myScratchPads "terminal")
@@ -332,7 +333,7 @@ myConfig = def
     , ("M-a <Space>", spawn "playerctl --play-pause")
     , ("M-a m", spawn "amixer set Master toggle")
 
-    -- KB_GROUP Notifications 
+    -- KB_GROUP Notifications
     , ("M-n <Space>", spawn "dunstctl close-all")
     , ("M-n c", spawn "dunstctl close")
     , ("M-n h", spawn "dunstctl history-pop")
@@ -341,9 +342,10 @@ myConfig = def
     , ("<XF86AudioPlay>", spawn "playerctl play-pause")
     , ("<XF86AudioPrev>", spawn "playerctl previous")
     , ("<XF86AudioNext>", spawn "playerctl next")
-    , ("<XF86AudioMute>", spawn "amixer set Master toggle")
-    , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
-    , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
+    -- Let volumeicon bind these keys
+    --, ("<XF86AudioMute>", spawn "amixer set Master toggle")
+    --, ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
+    --, ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
     , ("<XF86HomePage>", spawn "qutebrowser")
     , ("<XF86Search>", spawn "dm-websearch")
     , ("<XF86Mail>", runOrRaise "thunderbird" (resource =? "thunderbird"))
@@ -447,7 +449,7 @@ myLayoutHook =   avoidStruts
                $ fullscreenFloat
                $ mouseResize
                $ mkToggle (single REFLECTX)
-               $ mkToggle (single FULL) 
+               $ mkToggle (single FULL)
                $ myLayouts
              where
              myLayouts =       grid
@@ -461,7 +463,7 @@ tall     = renamed [Replace "MasterStack"]
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ mySpacing 0
-           $ Tall 1 (3/100) (1/2) 
+           $ Tall 1 (3/100) (1/2)
 grid     = renamed [Replace "Grid"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
@@ -473,13 +475,13 @@ threeCol = renamed [Replace "CenteredFloatingMaster"]
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ mySpacing 0
-           $ ThreeCol 1 (3/100) (1/2) 
+           $ ThreeCol 1 (3/100) (1/2)
 threeColMid = renamed [Replace "CenteredMaster"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ mySpacing 0
-           $ ThreeColMid 1 (3/100) (1/2) 
+           $ ThreeColMid 1 (3/100) (1/2)
 tabs     = renamed [Replace "Tabbed"]
            $ tabbed shrinkText myTabTheme
 
@@ -489,13 +491,13 @@ tabs     = renamed [Replace "Tabbed"]
 myXmobarPP :: PP
 myXmobarPP = def
     { ppSep = xmobarColor colorBg "" "  "
-    , ppCurrent = xmobarColor colorBg5 colorOrange . wrap ("<box color=colorOrange>") "</box>"
-    , ppHidden = xmobarColor colorFg colorBg 
+    , ppCurrent = xmobarColor colorBg colorOrange . wrap ("<box color=colorOrange>") "</box>"
+    , ppHidden = xmobarColor colorFg colorBg
     , ppHiddenNoWindows = xmobarColor colorBg5 colorBg
     , ppUrgent = xmobarColor colorBgRed colorBg . wrap ("<box type=Bottom width=4 mb=2 color=" ++ colorBgRed ++ ">") "</box>"
     , ppLayout = xmobarColor colorFg colorBg
-    , ppTitle = xmobarColor colorFg "" . wrap 
-    (xmobarColor colorFg "" "[") (xmobarColor colorFg "" "]") . xmobarColor colorOrange "" . shorten 11 
+    , ppTitle = xmobarColor colorFg "" . wrap
+    (xmobarColor colorFg "" "[") (xmobarColor colorFg "" "]") . xmobarColor colorOrange "" . shorten 11
     }
 
 -- }}}
