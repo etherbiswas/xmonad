@@ -166,7 +166,7 @@ myStartupHook = do
     spawn ("sleep 2 && trayer --edge bottom --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true  --transparent false --alpha 0 " ++ colorTrayer ++ " --height 22 --padding 3 --iconspacing 3")
     spawn "conky"
     spawn "picom"
-    spawn "feh --bg-fill ~/.config/xmonad/Gruv-street.png"
+    spawn "feh --bg-fill ~/.config/xmonad/Gruv-castle.jpg"
     spawnOnce "numlockx"
     spawnOnce "volumeicon"
     spawnOnce "nm-applet"
