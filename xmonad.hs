@@ -163,13 +163,16 @@ myStartupHook = do
     spawn "xsetroot -cursor_name left_ptr"
     spawn "~/.config/xmonad/audioProfile.sh"
     spawn "killall trayer"
-    spawn ("sleep 2 && trayer --edge bottom --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true  --transparent false --alpha 0 " ++ colorTrayer ++ " --height 22 --padding 3 --iconspacing 3")
-    spawn "conky"
+    spawn ("sleep 2 && trayer --edge top --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true  --transparent true --alpha 0 " ++ colorTrayer ++ " --height 24 --padding 3 --iconspacing 3")
+    spawnOnce "conky"
+    spawnOnce "bash ~/.config/conky/conky-spotify/start.sh"
     spawn "picom"
-    spawn "feh --bg-fill --randomize ~/.config/xmonad/wallpapers/*"
+    spawnOnce "plank"
+    spawn "feh --bg-fill ~/.config/xmonad/Gruv-wallpapers/Gruv-house.jpg"
+  -- spawn "feh --bg-fill --randomize ~/.config/xmonad/Gruv-wallpapers/*"
     spawnOnce "numlockx"
     spawnOnce "blueman-applet"
-    spawnOnce "volumeicon"
+    --spawnOnce "volumeicon"
     spawnOnce "nm-applet"
     spawnOnce "xbacklight -set 25"
     spawn "redshift -x && redshift -O 3500"
@@ -236,7 +239,7 @@ main = do
 
 myConfig = def
     { manageHook         = insertPosition Below Newer <+> myManageHook
-    , handleEventHook    = myHandleEventHook
+    , handleEventHook    = myHandleEventHook <+> Hacks.trayerAboveXmobarEventHook <+> Hacks.trayerPaddingXmobarEventHook
     , modMask            = myModMask
     , terminal           = myTerminal
     , focusFollowsMouse  = False
@@ -344,9 +347,9 @@ myConfig = def
     , ("<XF86AudioPrev>", spawn "playerctl previous")
     , ("<XF86AudioNext>", spawn "playerctl next")
     -- Let volumeicon bind these keys
-    --, ("<XF86AudioMute>", spawn "amixer set Master toggle")
-    --, ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
-    --, ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
+    , ("<XF86AudioMute>", spawn "amixer set Master toggle")
+    , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
+    , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
     , ("<XF86HomePage>", spawn "qutebrowser")
     , ("<XF86Search>", spawn "dm-websearch")
     , ("<XF86Mail>", runOrRaise "thunderbird" (resource =? "thunderbird"))
@@ -492,13 +495,13 @@ tabs     = renamed [Replace "Tabbed"]
 myXmobarPP :: PP
 myXmobarPP = def
     { ppSep = xmobarColor colorBg "" "  "
-    , ppCurrent = xmobarColor colorBg colorOrange . wrap ("<box color=colorOrange>") "</box>"
-    , ppHidden = xmobarColor colorFg colorBg
-    , ppHiddenNoWindows = xmobarColor colorBg5 colorBg
-    , ppUrgent = xmobarColor colorBgRed colorBg . wrap ("<box type=Bottom width=4 mb=2 color=" ++ colorBgRed ++ ">") "</box>"
-    , ppLayout = xmobarColor colorFg colorBg
+    , ppCurrent = xmobarColor colorBg1 colorBlue . wrap ("<box type=Bottom>") "</box>"
+    , ppHidden = xmobarColor colorFg colorBg1
+    , ppHiddenNoWindows = xmobarColor colorBg5 colorBg1
+    , ppUrgent = xmobarColor colorBgRed colorBg1 . wrap ("<box type=Bottom width=4 mb=2 color=" ++ colorBgRed ++ ">") "</box>"
+    , ppLayout = xmobarColor colorFg colorBg1
     , ppTitle = xmobarColor colorFg "" . wrap
-    (xmobarColor colorFg "" "[") (xmobarColor colorFg "" "]") . xmobarColor colorOrange "" . shorten 11
+    (xmobarColor colorFg "" "[") (xmobarColor colorFg "" "]") . xmobarColor colorRed "" . shorten 11
     }
 
 -- }}}
