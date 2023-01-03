@@ -466,25 +466,25 @@ tall     = renamed [Replace "MasterStack"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ mySpacing 0
+           $ mySpacing 3
            $ Tall 1 (3/100) (1/2)
 grid     = renamed [Replace "Grid"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ mySpacing 0
+           $ mySpacing 3
            $ Grid (16/10)
 threeCol = renamed [Replace "CenteredFloatingMaster"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ mySpacing 0
+           $ mySpacing 3
            $ ThreeCol 1 (3/100) (1/2)
 threeColMid = renamed [Replace "CenteredMaster"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ mySpacing 0
+           $ mySpacing 3
            $ ThreeColMid 1 (3/100) (1/2)
 tabs     = renamed [Replace "Tabbed"]
            $ tabbed shrinkText myTabTheme
