@@ -276,12 +276,12 @@ myConfig = def
     , ("M-d", spawn "dmenu_run")
 
     -- KB_GROUP Workspaces
-    , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)
-    , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)
+    , ("C-M1-l", shiftTo Next nonNSP >> moveTo Next nonNSP)
+    , ("C-M1-h", shiftTo Prev nonNSP >> moveTo Prev nonNSP)
 
     -- KB_GROUP Increase/decrease spacing (gaps)
-    , ("M-<KP_Subtract>", decWindowSpacing 4)
-    , ("M-<KP_Add>", incWindowSpacing 4)
+    , ("C-M1-j", incWindowSpacing 4)
+    , ("C-M1-k", decWindowSpacing 4)
 
     -- KB_GROUP Increase/decrease windows in the master pane or the stack
     , ("M1-S-j", sendMessage $ IncMasterN (-1))
