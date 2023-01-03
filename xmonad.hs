@@ -166,7 +166,7 @@ myStartupHook = do
     spawn ("sleep 2 && trayer --edge top --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true  --transparent true --alpha 0 " ++ colorTrayer ++ " --height 24 --padding 3 --iconspacing 3")
     spawnOnce "conky"
     spawnOnce "bash ~/.config/conky/conky-spotify/start.sh"
-    spawn "picom"
+    spawn "picom --experimental-backends"
     spawnOnce "plank"
     spawn "feh --bg-fill ~/.config/xmonad/Gruv-wallpapers/Gruv-houses.jpg"
   -- spawn "feh --bg-fill --randomize ~/.config/xmonad/Gruv-wallpapers/*"
