@@ -168,7 +168,7 @@ myStartupHook = do
     spawnOnce "bash ~/.config/conky/conky-spotify/start.sh"
     spawn "picom"
     spawnOnce "plank"
-    spawn "feh --bg-fill ~/.config/xmonad/Gruv-wallpapers/Gruv-house.jpg"
+    spawn "feh --bg-fill ~/.config/xmonad/Gruv-wallpapers/Gruv-houses.jpg"
   -- spawn "feh --bg-fill --randomize ~/.config/xmonad/Gruv-wallpapers/*"
     spawnOnce "numlockx"
     spawnOnce "blueman-applet"
