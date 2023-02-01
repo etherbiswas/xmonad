@@ -46,10 +46,10 @@ colorBgDBlue = "#0d3138"
 colorPurple = "#d3869b"
 
 -- Grey
-colorGrey0 = "#7c6f64"  
+colorGrey0 = "#7c6f64"
 colorGrey1 = "#928374"
 colorGrey2 = "#a89984"
 
-colorTrayer = "--tint 0x1d2021"
+colorTrayer = "--tint 0x282828"
 
 -- vim: ft=haskell:foldmethod=marker:expandtab:ts=4:shiftwidth=4
