@@ -30,6 +30,7 @@ import qualified Data.Map as M
 ---------------------------------------------------------------------}}}
 -- Hooks                                                             {{{
 ------------------------------------------------------------------------
+import XMonad.Hooks.WindowSwallowing
 import XMonad.Hooks.EwmhDesktops as Ewmh
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers as ManageHelpers
@@ -148,6 +149,8 @@ myFocusColor = colorGrey0
 ------------------------------------------------------------------------
 myTerminal = "alacritty"
 myBrowser = "brave-browser"
+myFileManager = "pcmanfm"
+myMusicStreamer = "spotify"
 myLockscreen = "physlock"
 myModMask = mod4Mask
 myEditor = myTerminal ++ " -e nvim "
@@ -164,18 +167,19 @@ myStartupHook = do
     spawn "~/.config/xmonad/audioProfile.sh"
     spawn "killall trayer"
     spawn ("sleep 2 && trayer --edge top --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true  --transparent true --alpha 0 " ++ colorTrayer ++ " --height 24 --padding 3 --iconspacing 3")
+    spawn "picom"
+    spawn "feh --bg-fill --randomize ~/.config/xmonad/Gruv-wallpapers/*"
+    -- spawn "feh --bg-fill ~/.config/xmonad/Gruv-wallpapers/Gruv-houses.jpg"
+    spawn "redshift -x && redshift -O 3500"
     spawnOnce "conky"
     spawnOnce "bash ~/.config/conky/conky-spotify/start.sh"
-    spawn "picom --experimental-backends"
     spawnOnce "plank"
-    spawn "feh --bg-fill ~/.config/xmonad/Gruv-wallpapers/Gruv-houses.jpg"
-  -- spawn "feh --bg-fill --randomize ~/.config/xmonad/Gruv-wallpapers/*"
     spawnOnce "numlockx"
     spawnOnce "blueman-applet"
-    --spawnOnce "volumeicon"
     spawnOnce "nm-applet"
     spawnOnce "xbacklight -set 25"
-    spawn "redshift -x && redshift -O 3500"
+    spawnOnce "~/.config/xmonad/batteryNotify.sh"
+    --spawnOnce "volumeicon"
 
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
@@ -229,6 +233,7 @@ main = do
     xmonad
       $ Hacks.javaHack
       $ fullscreenSupportBorder
+      -- $ fullscreenSupport
       $ ewmh
       $ withUrgencyHook NoUrgencyHook
       $ docks
@@ -239,7 +244,7 @@ main = do
 
 myConfig = def
     { manageHook         = insertPosition Below Newer <+> myManageHook
-    , handleEventHook    = myHandleEventHook <+> Hacks.trayerAboveXmobarEventHook <+> Hacks.trayerPaddingXmobarEventHook
+    , handleEventHook    = myHandleEventHook <+> Hacks.trayerAboveXmobarEventHook <+> Hacks.trayerPaddingXmobarEventHook <+> myXPropertyChange
     , modMask            = myModMask
     , terminal           = myTerminal
     , focusFollowsMouse  = False
@@ -273,6 +278,8 @@ myConfig = def
     , ("M1-<Space>", spawn "rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi")
     , ("M1-<Tab>", spawn "rofi -modi window -show window -config ~/.config/rofi/rofidmenu.rasi")
     , ("M-b", spawn $ myBrowser)
+    , ("M-e", spawn $ myFileManager)
+    , ("M-p", spawn $ myMusicStreamer)
     , ("M-d", spawn "dmenu_run")
 
     -- KB_GROUP Workspaces
@@ -348,8 +355,8 @@ myConfig = def
     , ("<XF86AudioNext>", spawn "playerctl next")
     -- Let volumeicon bind these keys
     , ("<XF86AudioMute>", spawn "amixer set Master toggle")
-    , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
-    , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
+    , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga")
+    , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga")
     , ("<XF86HomePage>", spawn "qutebrowser")
     , ("<XF86Search>", spawn "dm-websearch")
     , ("<XF86Mail>", runOrRaise "thunderbird" (resource =? "thunderbird"))
@@ -419,7 +426,7 @@ myManageHook =
     , className =? "toolbar"         --> doFloat
     , className =? "zoom"            --> doFloat
     , className =? "Yad"             --> doCenterFloat
-    -- , className =? "Firefox-esr"     --> doShift " 3 "
+    , className =? "Brave-browser"   --> doShift " 3 "
     , isFullscreen                   --> doFullFloat
     ] <+> namedScratchpadManageHook myScratchPads
 
@@ -428,8 +435,9 @@ myManageHook =
 ---------------------------------------------------------------------------
 myHandleEventHook = XMonad.Layout.Fullscreen.fullscreenEventHook
                 <+> Hacks.windowedFullscreenFixEventHook
+                <+> swallowEventHook (className =? "Alacritty") (return True)
 
-myXPropertyChange = onXPropertyChange "WM_NAME" (title =? "Spotify" --> doShift " 2 ")
+myXPropertyChange = onXPropertyChange "WM_CLASS" (title =? "Spotify" --> doShift " 2 ")
 
 ---------------------------------------------------------------------------
 -- Custom Hook Helpers
@@ -466,25 +474,25 @@ tall     = renamed [Replace "MasterStack"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ mySpacing 3
+           $ mySpacing 4
            $ Tall 1 (3/100) (1/2)
 grid     = renamed [Replace "Grid"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ mySpacing 3
+           $ mySpacing 4
            $ Grid (16/10)
 threeCol = renamed [Replace "CenteredFloatingMaster"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ mySpacing 3
+           $ mySpacing 4
            $ ThreeCol 1 (3/100) (1/2)
 threeColMid = renamed [Replace "CenteredMaster"]
            $ smartBorders
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ mySpacing 3
+           $ mySpacing 4
            $ ThreeColMid 1 (3/100) (1/2)
 tabs     = renamed [Replace "Tabbed"]
            $ tabbed shrinkText myTabTheme
