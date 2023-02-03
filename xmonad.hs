@@ -171,6 +171,7 @@ myStartupHook = do
     spawn "feh --bg-fill --randomize ~/.config/xmonad/Gruv-wallpapers/*"
     -- spawn "feh --bg-fill ~/.config/xmonad/Gruv-wallpapers/Gruv-houses.jpg"
     spawn "redshift -x && redshift -O 3500"
+    spawn "~/.config/xmonad/batteryNotify.sh"
     spawnOnce "conky"
     spawnOnce "bash ~/.config/conky/conky-spotify/start.sh"
     spawnOnce "plank"
@@ -178,7 +179,6 @@ myStartupHook = do
     spawnOnce "blueman-applet"
     spawnOnce "nm-applet"
     spawnOnce "xbacklight -set 25"
-    spawnOnce "~/.config/xmonad/batteryNotify.sh"
     --spawnOnce "volumeicon"
 
 myScratchPads :: [NamedScratchpad]
@@ -243,7 +243,8 @@ main = do
       $ myConfig
 
 myConfig = def
-    { manageHook         = insertPosition Below Newer <+> myManageHook
+    { manageHook         = insertPosition Above Newer <+> myManageHook
+    -- { manageHook         = insertPosition Below Newer <+> myManageHook
     , handleEventHook    = myHandleEventHook <+> Hacks.trayerAboveXmobarEventHook <+> Hacks.trayerPaddingXmobarEventHook <+> myXPropertyChange
     , modMask            = myModMask
     , terminal           = myTerminal

@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# ensure only one instance of script is running
+if pidof -x $(basename $0) -o %PPID > /dev/null
+then
+    exit
+fi
+
 export $(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pgrep -u $LOGNAME xmonad)/environ | tr '\0' '\n')
 
     if [ -d /sys/class/power_supply/BAT* ]; then
