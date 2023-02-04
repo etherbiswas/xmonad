@@ -163,7 +163,7 @@ myResourceManager = myTerminal ++ " -e htop "
 myStartupHook :: X ()
 myStartupHook = do
     setWMName "LG3D"
-    spawn "xsetroot -cursor_name left_ptr"
+    spawnOnce "xsetroot -cursor_name left_ptr"
     spawn "~/.config/xmonad/audioProfile.sh"
     spawn "killall trayer"
     spawn ("sleep 2 && trayer --edge top --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true  --transparent true --alpha 0 " ++ colorTrayer ++ " --height 24 --padding 3 --iconspacing 3")
@@ -171,7 +171,7 @@ myStartupHook = do
     spawn "feh --bg-fill --randomize ~/.config/xmonad/Gruv-wallpapers/*"
     -- spawn "feh --bg-fill ~/.config/xmonad/Gruv-wallpapers/Gruv-houses.jpg"
     spawn "redshift -x && redshift -O 3500"
-    spawn "~/.config/xmonad/batteryNotify.sh"
+    spawnOnce "bash ~/.config/xmonad/batteryNotify.sh &"
     spawnOnce "conky"
     spawnOnce "bash ~/.config/conky/conky-spotify/start.sh"
     spawnOnce "plank"
