@@ -163,22 +163,22 @@ myResourceManager = myTerminal ++ " -e htop "
 myStartupHook :: X ()
 myStartupHook = do
     setWMName "LG3D"
-    spawnOnce "xsetroot -cursor_name left_ptr"
-    spawn "~/.config/xmonad/audioProfile.sh"
+    spawn "xsetroot -cursor_name left_ptr"
     spawn "killall trayer"
     spawn ("sleep 2 && trayer --edge top --align right --widthtype request --SetDockType true --SetPartialStrut true --expand true  --transparent true --alpha 0 " ++ colorTrayer ++ " --height 24 --padding 3 --iconspacing 3")
     spawn "picom"
     spawn "feh --bg-fill --randomize ~/.config/xmonad/Gruv-wallpapers/*"
     -- spawn "feh --bg-fill ~/.config/xmonad/Gruv-wallpapers/Gruv-houses.jpg"
     spawn "redshift -x && redshift -O 3500"
+    spawnOnce "~/.config/xmonad/audioProfile.sh"
     spawnOnce "conky"
-    spawnOnce "bash ~/.config/conky/conky-spotify/start.sh"
+    spawnOnce "~/.config/conky/conky-spotify/start.sh"
     spawnOnce "plank"
     spawnOnce "numlockx"
     spawnOnce "blueman-applet"
     spawnOnce "nm-applet"
     spawnOnce "xbacklight -set 25"
-    spawnOnce "bash ~/.config/xmonad/batteryNotify.sh"
+    spawnOnce "~/.config/xmonad/batteryNotify.sh"
     --spawnOnce "volumeicon"
 
 myScratchPads :: [NamedScratchpad]

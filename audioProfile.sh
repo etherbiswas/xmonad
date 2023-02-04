@@ -1,11 +1,5 @@
 #!/bin/sh
 
-# ensure only one instance of script is running
-if pidof -x $(basename $0) -o %PPID > /dev/null
-then
-    exit
-fi
-
 # Pc-Jack
 pacmd set-card-profile alsa_card.pci-0000_09_00.1 off
 # Pc-Jack-2
