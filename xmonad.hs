@@ -178,7 +178,7 @@ myStartupHook = do
     spawnOnce "blueman-applet"
     spawnOnce "nm-applet"
     spawnOnce "xbacklight -set 25"
-    spawnOnce "~/.config/xmonad/batteryNotify.sh"
+    -- spawnOnce "~/.config/xmonad/batteryNotify.sh"
     --spawnOnce "volumeicon"
 
 myScratchPads :: [NamedScratchpad]
