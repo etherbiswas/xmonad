@@ -170,15 +170,15 @@ myStartupHook = do
     spawn "feh --bg-fill --randomize ~/.config/xmonad/Gruv-wallpapers/*"
     -- spawn "feh --bg-fill ~/.config/xmonad/Gruv-wallpapers/Gruv-houses.jpg"
     spawn "redshift -x && redshift -O 3500"
-    spawnOnce "~/.config/xmonad/audioProfile.sh"
+    spawnOnce "bash ~/.config/xmonad/audioProfile.sh &"
     spawnOnce "conky"
-    spawnOnce "~/.config/conky/conky-spotify/start.sh"
+    spawnOnce "bash ~/.config/conky/conky-spotify/start.sh &"
     spawnOnce "plank"
     spawnOnce "numlockx"
     spawnOnce "blueman-applet"
     spawnOnce "nm-applet"
     spawnOnce "xbacklight -set 25"
-    -- spawnOnce "~/.config/xmonad/batteryNotify.sh"
+    spawnOnce "bash ~/.config/xmonad/batteryNotify.sh &"
     --spawnOnce "volumeicon"
 
 myScratchPads :: [NamedScratchpad]
