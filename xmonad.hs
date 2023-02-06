@@ -364,6 +364,7 @@ myConfig = def
     , ("<XF86Calculator>", runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
     , ("<XF86Eject>", spawn "toggleeject")
     , ("<Print>", spawn "scrot")
+    , ("M-<Print>", spawn "xfce4-screenshooter -r")
     , ("M1-m", spawn "amixer -q sset Capture toggle")
     ]
 
