@@ -342,7 +342,7 @@ myConfig = def
     , ("M-a j", spawn "amixer set Master 5%- unmute")
     , ("M-a k", spawn "amixer set Master 5%+ unmute")
     , ("M-a l", spawn "playerctl next")
-    , ("M-a <Space>", spawn "playerctl --play-pause")
+    , ("M-a <Space>", spawn "playerctl play-pause")
     , ("M-a m", spawn "amixer set Master toggle")
 
     -- KB_GROUP Notifications
