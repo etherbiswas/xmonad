@@ -36,5 +36,5 @@ else
              fi
     fi
 fi
-sleep 60
+sleep 60s
 done
